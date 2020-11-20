@@ -26,7 +26,6 @@ RUN set -ex \
         php7-intl \
         php7-json \
         php7-mbstring \
-        php7-mcrypt \
         php7-mysqli \
         php7-opcache \
         php7-pdo \
