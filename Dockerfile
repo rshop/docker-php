@@ -7,8 +7,8 @@ ARG ALPINE_VERSION
 ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
 
 RUN set -ex \
-    && echo "https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.3" >> /etc/apk/repositories \
-    && echo "@php https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.3" >> /etc/apk/repositories \
+    && echo "https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.4" >> /etc/apk/repositories \
+    && echo "@php https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.4" >> /etc/apk/repositories \
     && apk update \
     && apk add --no-cache \
         ca-certificates \
