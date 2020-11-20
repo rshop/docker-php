@@ -19,6 +19,7 @@ RUN set -ex \
         php7-bz2 \
         php7-curl \
         php7-dom \
+        php7-ftp \
         php7-iconv \
         php7-imap \
         php7-intl \
@@ -30,16 +31,16 @@ RUN set -ex \
         php7-pdo \
         php7-pdo_mysql \
         php7-pdo_sqlite \
-        php7-soap \
         php7-phar \
         php7-posix \
         php7-redis \
+        php7-soap \
         php7-sockets \
         php7-sodium \
-        php7-zip \
-        php7-zlib \
         php7-xml \
         php7-xmlreader \
+        php7-zip \
+        php7-zlib \
     && ln -sf /usr/bin/php7 /usr/bin/php \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /usr/share/php7
