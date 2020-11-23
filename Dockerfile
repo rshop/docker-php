@@ -36,6 +36,7 @@ RUN set -ex \
         php7-phar \
         php7-posix \
         php7-redis \
+        php7-simplexml \
         php7-soap \
         php7-sockets \
         php7-sodium \
