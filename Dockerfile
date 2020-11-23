@@ -19,6 +19,7 @@ RUN set -ex \
         php7-bz2 \
         php7-curl \
         php7-dom \
+        php7-fileinfo \
         php7-ftp \
         php7-gd \
         php7-iconv \
