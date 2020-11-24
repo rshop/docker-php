@@ -40,6 +40,7 @@ RUN set -ex \
         php7-soap \
         php7-sockets \
         php7-sodium \
+        php7-tokenizer \
         php7-xml \
         php7-xmlreader \
         php7-xmlwriter \
