@@ -43,6 +43,7 @@ RUN set -ex \
         php7-sodium \
         php7-xml \
         php7-xmlreader \
+        php7-xmlwriter \
         php7-zip \
         php7-zlib \
     && ln -sf /usr/bin/php7 /usr/bin/php \
