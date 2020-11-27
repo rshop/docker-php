@@ -1,7 +1,7 @@
 
 
 FROM microsoft/mssql-tools as mssql
-FROM rshop/php:7.3
+FROM rshop/php:7.4
 
 COPY --from=mssql /opt/microsoft/ /opt/microsoft/
 COPY --from=mssql /opt/mssql-tools/ /opt/mssql-tools/
