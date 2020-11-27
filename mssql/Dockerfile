@@ -1,5 +1,3 @@
-
-
 FROM microsoft/mssql-tools as mssql
 FROM rshop/php:7.3
 
