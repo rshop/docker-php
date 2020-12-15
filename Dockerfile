@@ -1,14 +1,8 @@
-ARG ALPINE_VERSION=3.11
+FROM alpine:edge
 
-FROM alpine:$ALPINE_VERSION
-
-ARG ALPINE_VERSION
-
-ADD https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php7-dev php7-pear pkgconf re2c zlib-dev"
 
 RUN set -ex \
-    && echo "https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.4" >> /etc/apk/repositories \
-    && echo "@php https://dl.bintray.com/php-alpine/v$ALPINE_VERSION/php-7.4" >> /etc/apk/repositories \
     && apk update \
     && apk add --no-cache \
         ca-certificates \
