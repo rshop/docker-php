@@ -21,7 +21,6 @@ RUN set -ex \
         php7-ctype \
         php7-curl \
         php7-dom \
-        php7-fileinfo \
         php7-ftp \
         php7-gd \
         php7-iconv \
@@ -37,14 +36,11 @@ RUN set -ex \
         php7-phar \
         php7-posix \
         php7-redis \
-        php7-simplexml \
         php7-soap \
         php7-sockets \
         php7-sodium \
-        php7-tokenizer \
         php7-xml \
         php7-xmlreader \
-        php7-xmlwriter \
         php7-zip \
         php7-zlib \
     && ln -sf /usr/bin/php7 /usr/bin/php \
