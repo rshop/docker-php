@@ -1,5 +1,5 @@
 FROM microsoft/mssql-tools as mssql
-FROM rshop/php:7.3
+FROM rshop/php:8.0
 
 COPY --from=mssql /opt/microsoft/ /opt/microsoft/
 COPY --from=mssql /opt/mssql-tools/ /opt/mssql-tools/
@@ -13,8 +13,8 @@ RUN apk update \
         freetds-dev \
         unixodbc-dev \
     && pecl install sqlsrv pdo_sqlsrv \
-    && echo "extension=sqlsrv.so" > /etc/php7/conf.d/50_sqlsrv.ini \
-    && echo "extension=pdo_sqlsrv.so" > /etc/php7/conf.d/50_pdo_sqlsrv.ini \
+    && echo "extension=sqlsrv.so" > /etc/php8/conf.d/50_sqlsrv.ini \
+    && echo "extension=pdo_sqlsrv.so" > /etc/php8/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man

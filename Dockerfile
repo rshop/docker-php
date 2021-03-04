@@ -1,50 +1,48 @@
-FROM alpine:3.12
+FROM alpine:edge
 
-ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php7-dev php7-pear pkgconf re2c zlib-dev"
+ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php8-dev php8-pear pkgconf re2c zlib-dev"
 
 RUN set -ex \
     && apk update \
     && apk add --no-cache \
         ca-certificates \
         curl \
-        php7 \
-        php7-apcu \
-        php7-bcmath \
-        php7-bz2 \
-        php7-calendar \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-fileinfo \
-        php7-ftp \
-        php7-gd \
-        php7-iconv \
-        php7-imap \
-        php7-intl \
-        php7-json \
-        php7-mbstring \
-        php7-mcrypt \
-        php7-mysqli \
-        php7-opcache \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-pdo_sqlite \
-        php7-phar \
-        php7-posix \
-        php7-redis \
-        php7-simplexml \
-        php7-soap \
-        php7-sockets \
-        php7-sodium \
-        php7-tokenizer \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-zip \
-        php7-zlib \
-    && ln -sf /usr/bin/php7 /usr/bin/php \
+        php8 \
+        php8-bcmath \
+        php8-bz2 \
+        php8-calendar \
+        php8-ctype \
+        php8-curl \
+        php8-dom \
+        php8-fileinfo \
+        php8-ftp \
+        php8-gd \
+        php8-iconv \
+        php8-imap \
+        php8-intl \
+        php8-json \
+        php8-mbstring \
+        php8-mysqli \
+        php8-opcache \
+        php8-pdo \
+        php8-pdo_mysql \
+        php8-pdo_sqlite \
+        php8-phar \
+        php8-posix \
+        php8-redis \
+        php8-simplexml \
+        php8-soap \
+        php8-sockets \
+        php8-sodium \
+        php8-tokenizer \
+        php8-xml \
+        php8-xmlreader \
+        php8-xmlwriter \
+        php8-zip \
+        php8-zlib \
+    && ln -sf /usr/bin/php8 /usr/bin/php \
     && apk del --purge *-dev \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /usr/share/php7
+    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /usr/share/php8
 
 ENV PHP_DISPLAY_ERRORS On
 ENV PHP_MAX_EXECUTION_TIME -1
@@ -56,4 +54,4 @@ ENV PHP_SESSION_SAVE_HANDLER files
 ENV PHP_SESSION_SAVE_PATH /tmp
 ENV PHP_SESSION_GC_MAXLIFETIME 1440
 
-COPY conf.d/* /etc/php7/conf.d/
+COPY conf.d/* /etc/php8/conf.d/
