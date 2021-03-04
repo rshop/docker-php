@@ -12,7 +12,7 @@ RUN apk update \
         $PHPIZE_DEPS \
         freetds-dev \
         unixodbc-dev \
-    && pecl install sqlsrv pdo_sqlsrv \
+    && pecl8 install sqlsrv pdo_sqlsrv \
     && echo "extension=sqlsrv.so" > /etc/php8/conf.d/50_sqlsrv.ini \
     && echo "extension=pdo_sqlsrv.so" > /etc/php8/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
