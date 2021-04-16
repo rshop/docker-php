@@ -27,6 +27,9 @@ RUN set -ex \
         php8-pdo \
         php8-pdo_mysql \
         php8-pdo_sqlite \
+        php8-pecl-apcu \
+        php8-pecl-mcrypt \
+        php8-pecl-xdebug \
         php8-phar \
         php8-posix \
         php8-redis \
@@ -53,5 +56,8 @@ ENV PHP_UPLOAD_MAX_FILESIZE 8M
 ENV PHP_SESSION_SAVE_HANDLER files
 ENV PHP_SESSION_SAVE_PATH /tmp
 ENV PHP_SESSION_GC_MAXLIFETIME 1440
+ENV PHP_XDEBUG_ENABLED 0
+ENV PHP_XDEBUG_MAX_NESTING_LEVEL 250
+ENV PHP_XDEBUG_REMOTE_HOST docker.for.mac.localhost
 
 COPY conf.d/* /etc/php8/conf.d/
