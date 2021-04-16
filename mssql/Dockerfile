@@ -20,6 +20,7 @@ RUN apk update \
         $PHPIZE_DEPS \
         freetds-dev \
         unixodbc-dev \
+    && pecl channel-update pecl.php.net \
     && pecl install sqlsrv pdo_sqlsrv \
     && echo "extension=sqlsrv.so" > /etc/php7/conf.d/50_sqlsrv.ini \
     && echo "extension=pdo_sqlsrv.so" > /etc/php7/conf.d/50_pdo_sqlsrv.ini \
