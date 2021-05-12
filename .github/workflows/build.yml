@@ -3,7 +3,7 @@ name: Build image and push to Docker Hub
 on:
   push:
     branches:
-      - '7.3'
+      - '7.4'
 
 jobs:
   docker:
@@ -24,25 +24,25 @@ jobs:
         with:
           context: ./base
           push: true
-          tags: rshop/php:7.3,rshop/php:latest
+          tags: rshop/php:7.4
       -
         name: Build mssql
         uses: docker/build-push-action@v2
         with:
           context: ./mssql
           push: true
-          tags: rshop/php:7.3-mssql
+          tags: rshop/php:7.4-mssql
       -
         name: Build xdebug
         uses: docker/build-push-action@v2
         with:
           context: ./xdebug
           push: true
-          tags: rshop/php:7.3-xdebug
+          tags: rshop/php:7.4-xdebug
       -
         name: Build mssql-xdebug
         uses: docker/build-push-action@v2
         with:
           context: ./mssql-xdebug
           push: true
-          tags: rshop/php:7.3-mssql-xdebug
+          tags: rshop/php:7.4-mssql-xdebug
