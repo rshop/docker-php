@@ -22,27 +22,27 @@ jobs:
         name: Build base
         uses: docker/build-push-action@v2
         with:
-          context: /base
+          context: ./base
           push: true
           tags: rshop/php:7.3,rshop/php:latest
       -
         name: Build mssql
         uses: docker/build-push-action@v2
         with:
-          context: /mssql
+          context: ./mssql
           push: true
           tags: rshop/php:7.3-mssql
       -
         name: Build xdebug
         uses: docker/build-push-action@v2
         with:
-          context: /xdebug
+          context: ./xdebug
           push: true
           tags: rshop/php:7.3-xdebug
       -
         name: Build mssql-xdebug
         uses: docker/build-push-action@v2
         with:
-          context: /mssql-xdebug
+          context: ./mssql-xdebug
           push: true
           tags: rshop/php:7.3-mssql-xdebug
