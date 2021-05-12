@@ -36,7 +36,6 @@ RUN set -ex \
         php7-sockets \
         php7-sodium \
         php7-tokenizer \
-        php7-xdebug \
         php7-xml \
         php7-xmlreader \
         php7-xmlwriter \
@@ -55,8 +54,5 @@ ENV PHP_UPLOAD_MAX_FILESIZE 8M
 ENV PHP_SESSION_SAVE_HANDLER files
 ENV PHP_SESSION_SAVE_PATH /tmp
 ENV PHP_SESSION_GC_MAXLIFETIME 1440
-ENV PHP_XDEBUG_ENABLED 0
-ENV PHP_XDEBUG_MAX_NESTING_LEVEL 250
-ENV PHP_XDEBUG_REMOTE_HOST docker.for.mac.localhost
 
 COPY conf.d/* /etc/php7/conf.d/
