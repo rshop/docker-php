@@ -56,3 +56,18 @@ jobs:
           context: ./mssql-xdebug
           push: true
           tags: rshop/php:${{ env.BRANCH }}-mssql-xdebug
+
+  rebuild:
+    needs: docker
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tag: ['${{ env.BRANCH }}', '${{ env.BRANCH }}-mssql', '${{ env.BRANCH }}-xdebug', '${{ env.BRANCH }}-mssql-xdebug']
+    steps:
+      -
+        name: Trigger apache rebuild
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: rshop/docker-php-apache
+          client-payload: '{"ref": "${{ matrix.tag }}"}'
