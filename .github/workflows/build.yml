@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        tag: ['${BRANCH}', '${BRANCH}-mssql', '${BRANCH}-xdebug', '${BRANCH}-mssql-xdebug']
+        tag: ["${{ env.BRANCH }}", "${{ env.BRANCH }}-mssql", "${{ env.BRANCH }}-xdebug", "${{ env.BRANCH }}-mssql-xdebug"]
     steps:
       -
         name: Trigger apache rebuild
