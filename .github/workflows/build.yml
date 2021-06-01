@@ -10,7 +10,7 @@ on:
         default: '7.3'
 
 env:
-  BRANCH: ${{ github.event.inputs.name:=GITHUB_REF##*/ }}
+  BRANCH: ${{ github.event.inputs.name || GITHUB_REF##*/ }}
 
 jobs:
   docker:
