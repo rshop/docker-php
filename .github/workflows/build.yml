@@ -3,7 +3,7 @@ name: Build image and push to Docker Hub
 on: push
 
 env:
-  BRANCH:  ${{ GITHUB_REF##*/ }}
+  BRANCH:  ${{ github.ref##*/ }}
 
 jobs:
   docker:
