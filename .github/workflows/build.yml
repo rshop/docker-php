@@ -1,16 +1,9 @@
 name: Build image and push to Docker Hub
 
-on:
-  push:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Branch to build'
-        required: true
-        default: '7.3'
+on: [push, workflow_dispatch]
 
 env:
-  BRANCH: ${{ github.event.inputs.name || '7.3' }}
+  BRANCH: '7.3'
 
 jobs:
   docker:
