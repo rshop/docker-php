@@ -4,6 +4,7 @@ on: [push, workflow_dispatch]
 
 env:
   BRANCH: '7.3'
+  WORKFLOW_ID: '8995258'
 
 jobs:
   docker:
@@ -37,11 +38,7 @@ jobs:
           tags: rshop/php:${{ env.BRANCH }}
       -
         name: Trigger apache base rebuild
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: rshop/docker-php-apache
-          client-payload: '{"ref": "${{ env.BRANCH }}"}'
+        run: curl --user ${{ secrets.PERSONAL_USER_NAME }}:${{ secrets.PERSONAL_ACCESS_TOKEN }} -X POST https://api.github.com/repos/rshop/docker-php-apache/actions/workflows/${{ env.WORKFLOW_ID }}/dispatches -d '{"ref":"${{ env.BRANCH }}"}'
       -
         name: Build mssql
         uses: docker/build-push-action@v2
