@@ -2,8 +2,15 @@ name: Build image and push to Docker Hub
 
 on:
   push:
-    branches:
-      - '7.3'
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Branch to build'
+        required: true
+        default: '7.3'
+
+env:
+  BRANCH: ${{ github.event.inputs.name:=GITHUB_REF##*/ }}
 
 jobs:
   docker:
@@ -12,6 +19,8 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ env.BRANCH }}
       -
         name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -19,30 +28,38 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Build latest
+        if: ${{ env.BRANCH == '7.3' }}
+        uses: docker/build-push-action@v2
+        with:
+          context: ./base
+          push: true
+          tags: rshop/php:latest
+      -
         name: Build base
         uses: docker/build-push-action@v2
         with:
           context: ./base
           push: true
-          tags: rshop/php:7.3,rshop/php:latest
+          tags: rshop/php:${{ env.BRANCH }}
       -
         name: Build mssql
         uses: docker/build-push-action@v2
         with:
           context: ./mssql
           push: true
-          tags: rshop/php:7.3-mssql
+          tags: rshop/php:${{ env.BRANCH }}-mssql
       -
         name: Build xdebug
         uses: docker/build-push-action@v2
         with:
           context: ./xdebug
           push: true
-          tags: rshop/php:7.3-xdebug
+          tags: rshop/php:${{ env.BRANCH }}-xdebug
       -
         name: Build mssql-xdebug
         uses: docker/build-push-action@v2
         with:
           context: ./mssql-xdebug
           push: true
-          tags: rshop/php:7.3-mssql-xdebug
+          tags: rshop/php:${{ env.BRANCH }}-mssql-xdebug
