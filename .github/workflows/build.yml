@@ -67,7 +67,7 @@ jobs:
           push: true
           tags: rshop/php:${{ env.BRANCH }}-xdebug
       -
-        name: Trigger apache base rebuild
+        name: Trigger apache xdebug rebuild
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
@@ -82,7 +82,7 @@ jobs:
           push: true
           tags: rshop/php:${{ env.BRANCH }}-mssql-xdebug
       -
-        name: Trigger apache base rebuild
+        name: Trigger apache mssql-xdebug rebuild
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
