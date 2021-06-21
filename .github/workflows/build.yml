@@ -42,7 +42,7 @@ jobs:
           fi
       -
         name: Build latest
-        if: ${{ env.BRANCH == secrets.LATEST_VERSION && matrix.version == 'base' }}
+        if: ${{ env.BRANCH == '7.3' && matrix.version == 'base' }}
         uses: docker/build-push-action@v2
         with:
           context: ./base
