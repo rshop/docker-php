@@ -42,12 +42,12 @@ jobs:
           fi
       -
         name: Build latest
-        if: ${{ env.BRANCH == '7.3' && matrix.version == 'base' }}
+        if: ${{ env.BRANCH == secrets.LATEST_VERSION && matrix.version == 'base' }}
         uses: docker/build-push-action@v2
         with:
           context: ./base
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ secrets.DOCKER_PLATFORMS }}
           tags: rshop/php:latest
       -
         name: Build ${{ matrix.version }}
@@ -55,7 +55,7 @@ jobs:
         with:
           context: ./${{ matrix.version }}
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ secrets.DOCKER_PLATFORMS }}
           tags: rshop/php:${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
       -
         name: Trigger apache ${{ matrix.version }} rebuild
@@ -67,6 +67,7 @@ jobs:
           branch: ${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
       -
         name: Trigger swoole ${{ matrix.version }} rebuild
+        if: ${{ !contains(matrix.version, 'xdebug') }}
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
