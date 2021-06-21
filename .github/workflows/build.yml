@@ -4,11 +4,15 @@ on: [push, workflow_dispatch]
 
 env:
   BRANCH: '8.0'
-  WORKFLOW_ID: '8995258'
+  APACHE_WORKFLOW_ID: '8995258'
+  SWOOLE_WORKFLOW_ID: '8996324'
 
 jobs:
-  docker:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ['base', 'mssql', 'xdebug', 'mssql-xdebug']
     steps:
       -
         name: Checkout
@@ -16,76 +20,57 @@ jobs:
         with:
           ref: ${{ env.BRANCH }}
       -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
         name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Create tag name
+        id: build-tag
+        run: |
+          if [[ matrix.version == 'base' ]]; then
+              echo "::set-output tag=name::"
+          else
+              echo "::set-output name=tag::-${{ matrix.version }}"
+          fi
+      -
         name: Build latest
-        if: ${{ env.BRANCH == '7.3' }}
+        if: ${{ env.BRANCH == secrets.LATEST_VERSION && matrix.version == 'base' }}
         uses: docker/build-push-action@v2
         with:
           context: ./base
           push: true
+          platforms: ${{ secrets.DOCKER_PLATFORMS }}
           tags: rshop/php:latest
       -
-        name: Build base
+        name: Build ${{ matrix.version }}
         uses: docker/build-push-action@v2
         with:
-          context: ./base
+          context: ./${{ matrix.version }}
           push: true
-          tags: rshop/php:${{ env.BRANCH }}
+          platforms: ${{ secrets.DOCKER_PLATFORMS }}
+          tags: rshop/php:${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
       -
-        name: Trigger apache base rebuild
+        name: Trigger apache ${{ matrix.version }} rebuild
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: 'rshop/docker-php-apache'
-          workflowId: ${{ env.WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}
+          workflowId: ${{ env.APACHE_WORKFLOW_ID }}
+          branch: ${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
       -
-        name: Build mssql
-        uses: docker/build-push-action@v2
-        with:
-          context: ./mssql
-          push: true
-          tags: rshop/php:${{ env.BRANCH }}-mssql
-      -
-        name: Trigger apache mssql rebuild
+        name: Trigger swoole ${{ matrix.version }} rebuild
+        if: ${{ !contains(matrix.version, 'xdebug') }}
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: 'rshop/docker-php-apache'
-          workflowId: ${{ env.WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}-mssql
-      -
-        name: Build xdebug
-        uses: docker/build-push-action@v2
-        with:
-          context: ./xdebug
-          push: true
-          tags: rshop/php:${{ env.BRANCH }}-xdebug
-      -
-        name: Trigger apache xdebug rebuild
-        uses: rshop/trigger-workflow-action@v1
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: 'rshop/docker-php-apache'
-          workflowId: ${{ env.WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}-xdebug
-      -
-        name: Build mssql-xdebug
-        uses: docker/build-push-action@v2
-        with:
-          context: ./mssql-xdebug
-          push: true
-          tags: rshop/php:${{ env.BRANCH }}-mssql-xdebug
-      -
-        name: Trigger apache mssql-xdebug rebuild
-        uses: rshop/trigger-workflow-action@v1
-        with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          repository: 'rshop/docker-php-apache'
-          workflowId: ${{ env.WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}-mssql-xdebug
+          repository: 'rshop/docker-swoole'
+          workflowId: ${{ env.SWOOLE_WORKFLOW_ID }}
+          branch: ${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
