@@ -2,7 +2,7 @@ FROM rshop/php:7.3-mssql
 
 RUN apk update \
     && apk add --no-cache \
-        php7-xdebug \
+        php7-pecl-xdebug \
     && echo "zend_extension=xdebug.so" > /etc/php7/conf.d/xdebug.ini \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
