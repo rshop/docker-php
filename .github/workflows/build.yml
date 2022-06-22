@@ -35,8 +35,8 @@ jobs:
         name: Create tag name
         id: build-tag
         run: |
-          if [[ matrix.version == 'base' ]]; then
-              echo "::set-output tag=name::"
+          if [[ ${{ matrix.version }} == 'base' ]]; then
+              echo "::set-output name=tag::"
           else
               echo "::set-output name=tag::-${{ matrix.version }}"
           fi
