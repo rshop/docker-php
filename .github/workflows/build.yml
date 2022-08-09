@@ -3,7 +3,7 @@ name: Build image and push to Docker Hub
 on: [push, workflow_dispatch]
 
 env:
-  BRANCH: '8.0'
+  BRANCH: '8.1'
   APACHE_WORKFLOW_ID: '8995258'
   SWOOLE_WORKFLOW_ID: '8996324'
 
