@@ -19,4 +19,5 @@ RUN apk update \
     && echo "extension=pdo_sqlsrv.so" > /etc/php7/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
     && apk del --purge *-dev \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man
+    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
+    && chown -R root:root /opt
