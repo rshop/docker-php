@@ -19,6 +19,7 @@ RUN set -ex \
         php7-ftp \
         php7-gd \
         php7-iconv \
+        php7-imagick \
         php7-imap \
         php7-intl \
         php7-json \
