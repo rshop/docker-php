@@ -21,3 +21,5 @@ RUN apk update \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && chown -R root:root /opt
+
+COPY conf.d/* /etc/php81/conf.d/
