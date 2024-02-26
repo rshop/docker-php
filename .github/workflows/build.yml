@@ -3,7 +3,7 @@ name: Build image and push to Docker Hub
 on: [push, workflow_dispatch]
 
 env:
-  BRANCH: '7.3'
+  BRANCH: '8.2'
   APACHE_WORKFLOW_ID: '8995258'
   SWOOLE_WORKFLOW_ID: '8996324'
 
@@ -42,7 +42,7 @@ jobs:
           fi
       -
         name: Build latest
-        if: ${{ env.BRANCH == '7.4' && matrix.version == 'base' }}
+        if: ${{ env.BRANCH == '8.2' && matrix.version == 'base' }}
         uses: docker/build-push-action@v2
         with:
           context: ./base
