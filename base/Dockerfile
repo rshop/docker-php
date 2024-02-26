@@ -1,50 +1,50 @@
-FROM alpine:3.12
+FROM alpine:edge
 
-ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php7-dev php7-pear pkgconf re2c zlib-dev"
+ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php82-dev php82-pear pkgconf re2c zlib-dev"
 
 RUN set -ex \
     && apk update \
     && apk add --no-cache \
         ca-certificates \
         curl \
-        php7 \
-        php7-apcu \
-        php7-bcmath \
-        php7-bz2 \
-        php7-calendar \
-        php7-ctype \
-        php7-curl \
-        php7-dom \
-        php7-fileinfo \
-        php7-ftp \
-        php7-gd \
-        php7-iconv \
-        php7-imap \
-        php7-intl \
-        php7-json \
-        php7-mbstring \
-        php7-mcrypt \
-        php7-mysqli \
-        php7-opcache \
-        php7-pdo \
-        php7-pdo_mysql \
-        php7-pdo_sqlite \
-        php7-phar \
-        php7-posix \
-        php7-redis \
-        php7-simplexml \
-        php7-soap \
-        php7-sockets \
-        php7-sodium \
-        php7-tokenizer \
-        php7-xml \
-        php7-xmlreader \
-        php7-xmlwriter \
-        php7-zip \
-        php7-zlib \
-    && ln -sf /usr/bin/php7 /usr/bin/php \
+        php82 \
+        php82-pecl-apcu \
+        php82-bcmath \
+        php82-bz2 \
+        php82-calendar \
+        php82-ctype \
+        php82-curl \
+        php82-dom \
+        php82-fileinfo \
+        php82-ftp \
+        php82-gd \
+        php82-iconv \
+        php82-imap \
+        php82-intl \
+        php82-json \
+        php82-mbstring \
+        php82-pecl-mcrypt \
+        php82-mysqli \
+        php82-opcache \
+        php82-pdo \
+        php82-pdo_mysql \
+        php82-pdo_sqlite \
+        php82-phar \
+        php82-posix \
+        php82-redis \
+        php82-simplexml \
+        php82-soap \
+        php82-sockets \
+        php82-sodium \
+        php82-tokenizer \
+        php82-xml \
+        php82-xmlreader \
+        php82-xmlwriter \
+        php82-zip \
+        php82-zlib \
+    && ln -sf /usr/bin/php82 /usr/bin/php \
     && apk del --purge *-dev \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /usr/share/php7
+    && rm -rf /var/cache/apk/* /tmp/* /usr/share/man /usr/share/php82
 
 ENV PHP_DISPLAY_ERRORS On
 ENV PHP_MAX_EXECUTION_TIME -1
@@ -56,4 +56,4 @@ ENV PHP_SESSION_SAVE_HANDLER files
 ENV PHP_SESSION_SAVE_PATH /tmp
 ENV PHP_SESSION_GC_MAXLIFETIME 1440
 
-COPY conf.d/* /etc/php7/conf.d/
+COPY conf.d/* /etc/php82/conf.d/
