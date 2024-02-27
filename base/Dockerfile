@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine:3.15
 
 ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php8-dev php8-pear pkgconf re2c zlib-dev"
 
