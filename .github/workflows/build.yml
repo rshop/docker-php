@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ['base', 'mssql', 'xdebug']
+        version: ['base', 'mssql', 'xdebug', 'mssql-xdebug']
     steps:
       -
         name: Checkout
