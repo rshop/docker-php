@@ -20,7 +20,6 @@ RUN set -ex \
         php82-iconv \
         php82-imap \
         php82-intl \
-        php82-json \
         php82-mbstring \
         php82-mysqli \
         php82-opcache \
