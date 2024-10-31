@@ -1,4 +1,4 @@
-FROM rshop/php:8.3
+FROM rshop/php:8.4
 
 RUN apk update \
     && wget https://download.microsoft.com/download/1/f/f/1fffb537-26ab-4947-a46a-7a45c27f6f77/msodbcsql18_18.2.1.1-1_amd64.apk \
@@ -13,13 +13,13 @@ RUN apk update \
         $PHPIZE_DEPS \
         freetds-dev \
         unixodbc-dev \
-    && pecl83 channel-update pecl.php.net \
-    && pecl83 install sqlsrv pdo_sqlsrv \
-    && echo "extension=sqlsrv.so" > /etc/php83/conf.d/50_sqlsrv.ini \
-    && echo "extension=pdo_sqlsrv.so" > /etc/php83/conf.d/50_pdo_sqlsrv.ini \
+    && pecl84 channel-update pecl.php.net \
+    && pecl84 install sqlsrv pdo_sqlsrv \
+    && echo "extension=sqlsrv.so" > /etc/php84/conf.d/50_sqlsrv.ini \
+    && echo "extension=pdo_sqlsrv.so" > /etc/php84/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && chown -R root:root /opt
 
-COPY conf.d/* /etc/php83/conf.d/
+COPY conf.d/* /etc/php84/conf.d/
