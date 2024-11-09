@@ -23,7 +23,7 @@ jobs:
         run: sleep ${{ matrix.branch.delay }}
 
       - name: Trigger build workflow on ${{ matrix.branch.name }}
-        uses: rshop/trigger-workflow-action@v2
+        uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: 'rshop/docker-php'
