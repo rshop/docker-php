@@ -1,0 +1,36 @@
+name: Schedule Branch Builds
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *' 
+
+jobs:
+  workflow:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch:
+          - { name: '7.3', delay: 0 }
+          - { name: '7.4', delay: 1200 }
+          - { name: '8.0', delay: 2400 }
+          - { name: '8.1', delay: 3600 }
+          - { name: '8.2', delay: 4800 }
+          - { name: '8.3', delay: 6000 }
+
+    steps:
+      - name: Introduce delay
+        run: sleep ${{ matrix.branch.delay }}
+
+      - name: Trigger build workflow on ${{ matrix.branch.name }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: 'rshop',
+              repo: 'docker-php',
+              workflow_id: 'build.yml',
+              ref: '${{ matrix.branch.name }}',
+              inputs: {}
+            })
+          github-token: ${{ secrets.GITHUB_TOKEN }}
