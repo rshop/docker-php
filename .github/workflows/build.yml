@@ -3,13 +3,6 @@ name: Build image and push to Docker Hub
 on:
   push:
   workflow_dispatch:
-  schedule:
-    - cron: '40 3 * * *'
-
-env:
-  BRANCH: '8.0'
-  APACHE_WORKFLOW_ID: '8995258'
-  SWOOLE_WORKFLOW_ID: '8996324'
 
 jobs:
   build:
@@ -23,16 +16,16 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ env.BRANCH }}
+          ref: ${{ github.ref_name }}
       -
         name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       -
         name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
       -
         name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -47,8 +40,8 @@ jobs:
           fi
       -
         name: Build latest
-        if: ${{ env.BRANCH == '8.3' && matrix.version == 'base' }}
-        uses: docker/build-push-action@v2
+        if: ${{ github.ref_name == '8.3' && matrix.version == 'base' }}
+        uses: docker/build-push-action@v6
         with:
           context: ./base
           push: true
@@ -56,20 +49,19 @@ jobs:
           tags: rshop/php:latest
       -
         name: Build ${{ matrix.version }}
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v6
         with:
           context: ./${{ matrix.version }}
           push: true
           platforms: ${{ secrets.DOCKER_PLATFORMS }}
-          tags: rshop/php:${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
+          tags: rshop/php:${{ github.ref_name }}${{ steps.build-tag.outputs.tag }}
       -
         name: Trigger apache ${{ matrix.version }} rebuild
         uses: rshop/trigger-workflow-action@v1
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: 'rshop/docker-php-apache'
-          workflowId: ${{ env.APACHE_WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
+          branch: ${{ github.ref_name }}${{ steps.build-tag.outputs.tag }}
       -
         name: Trigger swoole ${{ matrix.version }} rebuild
         if: ${{ !contains(matrix.version, 'xdebug') }}
@@ -77,5 +69,4 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           repository: 'rshop/docker-swoole'
-          workflowId: ${{ env.SWOOLE_WORKFLOW_ID }}
-          branch: ${{ env.BRANCH }}${{ steps.build-tag.outputs.tag }}
+          branch: ${{ github.ref_name }}${{ steps.build-tag.outputs.tag }}
