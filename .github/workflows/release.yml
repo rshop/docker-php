@@ -3,7 +3,7 @@ name: Schedule Branch Builds
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *' 
+    - cron: '0 3 * * *'
 
 jobs:
   workflow:
@@ -19,18 +19,12 @@ jobs:
           - { name: '8.3', delay: 6000 }
 
     steps:
-      - name: Introduce delay
+      - name: Delay
         run: sleep ${{ matrix.branch.delay }}
 
       - name: Trigger build workflow on ${{ matrix.branch.name }}
-        uses: actions/github-script@v6
+        uses: rshop/trigger-workflow-action@v2
         with:
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: 'rshop',
-              repo: 'docker-php',
-              workflow_id: 'build.yml',
-              ref: '${{ matrix.branch.name }}',
-              inputs: {}
-            })
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          repository: 'rshop/docker-php'
+          branch: ${{ matrix.branch.name }}
