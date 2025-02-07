@@ -1,6 +1,5 @@
 FROM alpine:edge
 
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 ENV PHPIZE_DEPS="autoconf automake dpkg dpkg-dev file g++ gcc libc-dev libtool make pcre-dev pcre2-dev php84-dev php84-pear pkgconf re2c zlib-dev"
 
 RUN set -ex \
