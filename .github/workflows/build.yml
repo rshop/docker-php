@@ -40,7 +40,7 @@ jobs:
           fi
       -
         name: Build latest
-        if: ${{ github.ref_name == '8.3' && matrix.version == 'base' }}
+        if: ${{ github.ref_name == '8.4' && matrix.version == 'base' }}
         uses: docker/build-push-action@v6
         with:
           context: ./base
