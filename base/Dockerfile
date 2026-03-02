@@ -27,7 +27,9 @@ RUN set -ex \
         php83-opcache \
         php83-pdo \
         php83-pdo_mysql \
+        php83-pdo_pgsql \
         php83-pdo_sqlite \
+        php83-pgsql \
         php83-phar \
         php83-posix \
         php83-redis \
