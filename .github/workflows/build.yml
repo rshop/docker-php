@@ -50,6 +50,8 @@ jobs:
       -
         name: Build ${{ matrix.version }}
         uses: docker/build-push-action@v6
+        env:
+          BUILDKIT_PROGRESS: plain
         with:
           context: ./${{ matrix.version }}
           push: true
