@@ -1,4 +1,4 @@
-FROM rshop/php:8.4
+FROM rshop/php:8.5
 
 RUN apk update \
     && ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') \
@@ -14,13 +14,13 @@ RUN apk update \
         $PHPIZE_DEPS \
         freetds-dev \
         unixodbc-dev \
-    && pecl84 channel-update pecl.php.net \
-    && pecl84 install sqlsrv pdo_sqlsrv \
-    && echo "extension=sqlsrv.so" > /etc/php84/conf.d/50_sqlsrv.ini \
-    && echo "extension=pdo_sqlsrv.so" > /etc/php84/conf.d/50_pdo_sqlsrv.ini \
+    && pecl85 channel-update pecl.php.net \
+    && pecl85 install sqlsrv pdo_sqlsrv \
+    && echo "extension=sqlsrv.so" > /etc/php85/conf.d/50_sqlsrv.ini \
+    && echo "extension=pdo_sqlsrv.so" > /etc/php85/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
     && apk del --purge *-dev \
     && rm -rf /var/cache/apk/* /tmp/* /usr/share/man \
     && chown -R root:root /opt
 
-COPY conf.d/* /etc/php84/conf.d/
+COPY conf.d/* /etc/php85/conf.d/
