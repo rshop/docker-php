@@ -18,6 +18,7 @@ jobs:
           - { name: '8.2', delay: 4800 }
           - { name: '8.3', delay: 6000 }
           - { name: '8.4', delay: 7200 }
+          - { name: '8.5', delay: 8400 }
 
     steps:
       - name: Delay
