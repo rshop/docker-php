@@ -15,7 +15,7 @@ RUN apk update \
         freetds-dev \
         unixodbc-dev \
     && pecl81 channel-update pecl.php.net \
-    && pecl81 install sqlsrv pdo_sqlsrv \
+    && pecl81 install sqlsrv-5.12.0 pdo_sqlsrv-5.12.0 \
     && echo "extension=sqlsrv.so" > /etc/php81/conf.d/50_sqlsrv.ini \
     && echo "extension=pdo_sqlsrv.so" > /etc/php81/conf.d/50_pdo_sqlsrv.ini \
     && apk del .build-deps \
